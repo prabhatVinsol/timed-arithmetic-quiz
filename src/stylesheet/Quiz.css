@@ -1,0 +1,39 @@
+.QuizDetail{
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    height: 60px;
+}
+.QuizContainer{
+    width: 400px;
+    height: 650px;
+    background-color: lightgrey;
+    margin: 50px;
+}
+.QuizDetailText{
+    padding: 5px;
+}
+.QuizTopText{
+    font-size: xx-large;
+}
+.ArithmeticContainer{
+    margin-top: 20px;
+    height: 100px;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 0.7fr 0.3fr;
+    grid-gap: 10px;
+}
+.Next{
+    background-color: skyblue;
+    border: 0px;
+    border-radius: 2px;
+    padding: 5px 10px;
+}
+.ButtonContainer{
+    text-align: left;
+}
+.Input{
+    margin-left: 10px;
+}
