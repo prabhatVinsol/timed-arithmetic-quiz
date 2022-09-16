@@ -1,35 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { publish } from './Event';
 import ProblemAnswer from './ProblemAnswer';
 import Score from './Score';
 import TimerContainer from './TimerContainer';
 
 function Quiz() {
   const [questionNumber, setQuestionNumber] = useState(1);
-  const [counter, setTimerCounter] = useState(20);
   const nextQuestion = () => {
     if (questionNumber < 20) {
-      setTimerCounter(20);
+      publish('Next', 20);
       setQuestionNumber(questionNumber + 1);
     }
   };
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (counter > 1) {
-        setTimerCounter(counter - 1);
-      } else {
-        nextQuestion();
-      }
-    }, 1000);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, [counter]);
   return (
     <div>
       <TimerContainer
         questionNum={questionNumber}
-        counter={counter}
+        nextQuestion={nextQuestion}
       />
       <ProblemAnswer nextQuestion={nextQuestion} />
       <Score />

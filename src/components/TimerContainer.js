@@ -1,7 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { subscribe } from './Event';
 
 function TimerContainer(props) {
-  const { questionNum, counter } = props;
+  const { questionNum, nextQuestion } = props;
+  const [count, setCount] = useState(20);
+
+  const updateCount = () => {
+    if (count > 1) {
+      setCount((prevState) => prevState - 1);
+    } else if (questionNum === 20) {
+      setCount(0);
+    } else {
+      nextQuestion();
+    }
+  };
+  useEffect(() => {
+    const timer = setInterval(updateCount, 1000);
+    subscribe('Next', (data) => {
+      setCount(data.detail);
+    });
+    return () => clearInterval(timer);
+  });
 
   return (
     <div className="QuizDetail">
@@ -13,7 +32,7 @@ function TimerContainer(props) {
       <div className="QuizTopText">
         Time Left-
         {' '}
-        {counter}
+        {count}
       </div>
     </div>
   );
