@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { subscribe } from './Event';
 import { getQuestion } from './Helper';
 
 function QuestionAnswer(props) {
   const { nextQuestion } = props;
+
+  useEffect(() => {
+    subscribe('NextQuestion', () => {
+      nextQuestion();
+    });
+  });
+  const handleOnClick = () => {
+    nextQuestion();
+  };
   return (
     <div className="ArithmeticContainer">
       <div>
@@ -10,7 +20,7 @@ function QuestionAnswer(props) {
         <input type="number" className="Input" />
       </div>
       <div className="ButtonContainer">
-        <button type="button" className="Next" onClick={() => nextQuestion()}>Next</button>
+        <button type="button" className="Next" onClick={handleOnClick}>Next</button>
       </div>
     </div>
   );

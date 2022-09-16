@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { subscribe } from './Event';
+import { publish, subscribe } from './Event';
 
 function TimerContainer(props) {
-  const { questionNum, nextQuestion } = props;
+  const { questionNum } = props;
   const [count, setCount] = useState(20);
 
   const updateCount = () => {
@@ -11,12 +11,13 @@ function TimerContainer(props) {
     } else if (questionNum === 20) {
       setCount(0);
     } else {
-      nextQuestion();
+      // nextQuestion();
+      publish('NextQuestion');
     }
   };
   useEffect(() => {
     const timer = setInterval(updateCount, 1000);
-    subscribe('Next', (data) => {
+    subscribe('ResetInterval', (data) => {
       setCount(data.detail);
     });
     return () => clearInterval(timer);

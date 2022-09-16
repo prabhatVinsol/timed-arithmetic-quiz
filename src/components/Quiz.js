@@ -8,7 +8,7 @@ function Quiz() {
   const [questionNumber, setQuestionNumber] = useState(1);
   const nextQuestion = () => {
     if (questionNumber < 20) {
-      publish('Next', 20);
+      publish('ResetInterval', 20);
       setQuestionNumber(questionNumber + 1);
     }
   };
