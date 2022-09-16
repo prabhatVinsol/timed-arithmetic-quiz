@@ -1,7 +1,7 @@
 import React from 'react';
 import { getQuestion } from './Helper';
 
-function ProblemAnswer(props) {
+function QuestionAnswer(props) {
   const { nextQuestion } = props;
   return (
     <div className="ArithmeticContainer">
@@ -16,4 +16,4 @@ function ProblemAnswer(props) {
   );
 }
 
-export default ProblemAnswer;
+export default QuestionAnswer;
