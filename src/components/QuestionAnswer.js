@@ -3,19 +3,19 @@ import { subscribe } from './Event';
 import { getQuestion } from './Helper';
 
 function QuestionAnswer(props) {
-  const { questionNumber, nextQuestion } = props;
-  const [questionObj, setQuestion] = useState(getQuestion(questionNumber));
+  const { questionNum, nextQuestion } = props;
+  const [questionObj, setQuestion] = useState(getQuestion(questionNum));
   const [inputVal, setInputVal] = useState('');
   useEffect(() => {
     subscribe('NextQuestion', () => {
       nextQuestion(questionObj);
-      setQuestion(getQuestion(questionNumber));
+      setQuestion(getQuestion(questionNum + 1));
       setInputVal('');
     });
   });
   const handleOnClick = () => {
     nextQuestion(questionObj);
-    setQuestion(getQuestion(questionNumber));
+    setQuestion(getQuestion(questionNum + 1));
     setInputVal('');
   };
   const onChangeHandler = (e) => {

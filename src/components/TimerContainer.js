@@ -10,6 +10,7 @@ function TimerContainer(props) {
       setCount((prevState) => prevState - 1);
     } else if (questionNum === 20) {
       setCount(0);
+      publish('NextQuestion');
     } else {
       publish('NextQuestion');
     }

@@ -10,6 +10,8 @@
     height: 650px;
     background-color: lightgrey;
     margin: 50px;
+    overflow-y: scroll;
+    overflow-x: scroll;
 }
 .QuizDetailText{
     padding: 5px;
@@ -36,4 +38,16 @@
 }
 .Input{
     margin-left: 10px;
+}
+.TableHeaderRow{
+    border: 1px solid;
+    border-color: white;
+}
+.Table{
+    width: 90%;
+    margin-left: 15px;
+    margin-right: 15px;
+    text-align: center;
+    border: 2px solid;
+    border-color: rgb(202, 201, 201);
 }
