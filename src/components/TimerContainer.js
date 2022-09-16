@@ -11,7 +11,6 @@ function TimerContainer(props) {
     } else if (questionNum === 20) {
       setCount(0);
     } else {
-      // nextQuestion();
       publish('NextQuestion');
     }
   };

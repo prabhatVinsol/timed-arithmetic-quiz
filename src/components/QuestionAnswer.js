@@ -1,26 +1,52 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { subscribe } from './Event';
 import { getQuestion } from './Helper';
 
 function QuestionAnswer(props) {
-  const { nextQuestion } = props;
-
+  const { questionNumber, nextQuestion } = props;
+  const [questionObj, setQuestion] = useState(getQuestion(questionNumber));
+  const [inputVal, setInputVal] = useState('');
   useEffect(() => {
     subscribe('NextQuestion', () => {
-      nextQuestion();
+      nextQuestion(questionObj);
+      setQuestion(getQuestion(questionNumber));
+      setInputVal('');
     });
   });
   const handleOnClick = () => {
-    nextQuestion();
+    nextQuestion(questionObj);
+    setQuestion(getQuestion(questionNumber));
+    setInputVal('');
+  };
+  const onChangeHandler = (e) => {
+    setQuestion((prevState) => ({
+      question: prevState.question,
+      id: prevState.id,
+      answer: prevState.answer,
+      givenAnswer: e.target.value,
+      correct: Number(prevState.answer) === Number(e.target.value),
+    }));
+    setInputVal(e.target.value);
   };
   return (
     <div className="ArithmeticContainer">
       <div>
-        {getQuestion()}
-        <input type="number" className="Input" />
+        {questionObj.question}
+        <input
+          type="number"
+          className="Input"
+          value={inputVal}
+          onChange={onChangeHandler}
+        />
       </div>
       <div className="ButtonContainer">
-        <button type="button" className="Next" onClick={handleOnClick}>Next</button>
+        <button
+          type="button"
+          className="Next"
+          onClick={handleOnClick}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
