@@ -1,14 +1,16 @@
 import React from 'react';
+import { getQuestion } from './Helper';
 
-function ProblemAnswer() {
+function ProblemAnswer(props) {
+  const { nextQuestion } = props;
   return (
     <div className="ArithmeticContainer">
       <div>
-        Question
+        {getQuestion()}
         <input type="number" className="Input" />
       </div>
       <div className="ButtonContainer">
-        <button type="button" className="Next" onClick={() => console.log('Next clicked')}>Next</button>
+        <button type="button" className="Next" onClick={() => nextQuestion()}>Next</button>
       </div>
     </div>
   );

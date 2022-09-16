@@ -6,7 +6,7 @@
     height: 60px;
 }
 .QuizContainer{
-    width: 400px;
+    width: 350px;
     height: 650px;
     background-color: lightgrey;
     margin: 50px;
@@ -15,7 +15,7 @@
     padding: 5px;
 }
 .QuizTopText{
-    font-size: xx-large;
+    font-size: x-large;
 }
 .ArithmeticContainer{
     margin-top: 20px;
