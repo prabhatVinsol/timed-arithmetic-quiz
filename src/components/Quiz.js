@@ -35,14 +35,14 @@ function Quiz() {
       && (
         <Answers
           answers={questions}
-          forCorrect
+          shouldShowCorrectAnswers
         />
       )}
       {!shouldShowQuiz
       && (
         <Answers
           answers={questions}
-          forCorrect={false}
+          shouldShowCorrectAnswers={false}
         />
       )}
     </div>
