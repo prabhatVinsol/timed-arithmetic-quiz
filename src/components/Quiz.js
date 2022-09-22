@@ -6,43 +6,51 @@ import QuestionAnswer from './QuestionAnswer';
 import Score from './Score';
 import TimerContainer from './TimerContainer';
 
-function Quiz() {
-  const [questionNumber, setQuestionNumber] = useState(1);
-  const [questions, setQuestions] = useState([]);
+function Quiz({ questions }) {
+  const [currentQuestion, updateCurrentQuestion] = useState(questions[0]);
+  const [correctResponses, updateCorrectResponses] = useState([]);
+  const [wrongResponses, updateWrongresponses] = useState([]);
 
   const nextQuestion = (question) => {
-    if (questionNumber <= QUESTIONS_COUNT) {
-      setQuestions([...questions, question]);
+    if (question.id <= QUESTIONS_COUNT) {
+      if (question.correct) {
+        updateCorrectResponses([...correctResponses, question]);
+      } else {
+        updateWrongresponses([...wrongResponses, question]);
+      }
       publish('ResetInterval', TIMER_LIMIT);
-      setQuestionNumber(questionNumber + 1);
+      if ((question.id) < QUESTIONS_COUNT) {
+        updateCurrentQuestion(questions[question.id]);
+      } else {
+        updateCurrentQuestion({ ...currentQuestion, id: (question.id + 1) });
+      }
     }
   };
 
-  const showQuiz = questionNumber <= QUESTIONS_COUNT;
-  const correctResponse = questions.filter((answer) => answer.correct).length;
+  const showQuiz = currentQuestion.id <= QUESTIONS_COUNT;
 
   const renderQuiz = () => (
     <div>
       <TimerContainer
-        questionNum={questionNumber}
+        questionNum={currentQuestion.id}
       />
       <QuestionAnswer
-        questionNum={questionNumber}
+        questionObj={currentQuestion}
         nextQuestion={nextQuestion}
       />
-      <Score correctResponse={correctResponse} />
+      <Score correctResponse={correctResponses.length} />
     </div>
   );
 
   const renderResults = () => (
     <div>
-      <Score correctResponse={correctResponse} />
+      <Score correctResponse={correctResponses.length} />
       <Answers
-        answers={questions}
+        answers={correctResponses}
         shouldShowCorrectAnswers
       />
       <Answers
-        answers={questions}
+        answers={wrongResponses}
         shouldShowCorrectAnswers={false}
       />
     </div>

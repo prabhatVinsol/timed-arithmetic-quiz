@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ENTER_CHARCODE } from '../utils/Constants';
 import { subscribe } from '../utils/Event';
-import { getQuestion } from './Helper';
 
 function QuestionAnswer(props) {
-  const { questionNum, nextQuestion } = props;
-  const [questionObj, updateQuestionWithResponse] = useState(getQuestion(questionNum));
+  const { questionObj, nextQuestion } = props;
   const [inputVal, setInputVal] = useState('');
 
   const getQuestionWithResponse = () => ({
@@ -16,7 +14,6 @@ function QuestionAnswer(props) {
 
   const handleNextQuestionResquest = () => {
     nextQuestion(getQuestionWithResponse());
-    updateQuestionWithResponse(getQuestion(questionNum + 1));
     setInputVal('');
   };
 

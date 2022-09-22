@@ -1,5 +1,5 @@
 /* eslint no-eval: 0 */
-import { MAX_LIMIT } from '../utils/Constants';
+import { MAX_LIMIT, QUESTIONS_COUNT } from '../utils/Constants';
 
 export const getRandomNumber = (maxLimit) => Math.floor(Math.random() * maxLimit);
 
@@ -40,4 +40,12 @@ export const getQuestion = (number) => {
     givenAnswer: '',
     correct: false,
   };
+};
+
+export const getQuestions = () => {
+  const questions = [];
+  for (let i = 1; i <= QUESTIONS_COUNT; i += 1) {
+    questions.push(getQuestion(i));
+  }
+  return questions;
 };
