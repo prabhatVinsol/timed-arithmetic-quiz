@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { QUESTIONS_COUNT, TIMER_LIMIT } from '../utils/Constants';
-import Answers from './Answers';
+import Answers from './Results';
 import { publish } from '../utils/Event';
 import QuestionAnswer from './QuestionAnswer';
 import Score from './Score';

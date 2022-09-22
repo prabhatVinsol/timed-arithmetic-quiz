@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Answers(props) {
+function Results(props) {
   const { answers, shouldShowCorrectAnswers } = props;
   const getCorrectOrWrongAnswerList = answers.filter((answer) => (
     shouldShowCorrectAnswers === answer.correct));
@@ -51,4 +51,4 @@ function Answers(props) {
   );
 }
 
-export default Answers;
+export default Results;
