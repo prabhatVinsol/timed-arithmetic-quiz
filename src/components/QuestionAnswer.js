@@ -37,9 +37,11 @@ function QuestionAnswer(props) {
   };
 
   const onChangeHandler = (e) => {
+    console.log('inputVal', inputVal);
     setInputVal(e.target.value);
   };
 
+  const exceptThisSymbols = ['e', 'E', '+', '-'];
   return (
     <div className="ArithmeticContainer">
       <div>
@@ -50,6 +52,7 @@ function QuestionAnswer(props) {
           value={inputVal}
           onChange={onChangeHandler}
           onKeyPress={handleKeypress}
+          onKeyDown={(e) => exceptThisSymbols.includes(e.key) && e.preventDefault()}
         />
       </div>
       <div className="ButtonContainer">
