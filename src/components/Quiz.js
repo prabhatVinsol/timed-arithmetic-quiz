@@ -17,6 +17,7 @@ function Quiz() {
     }
   };
   const shouldShowQuiz = questionNumber <= QUESTIONS_COUNT;
+  const correctResponse = questions.filter((answer) => answer.correct).length;
   return (
     <div>
       {shouldShowQuiz && (
@@ -30,7 +31,7 @@ function Quiz() {
           nextQuestion={nextQuestion}
         />
       )}
-      <Score answers={questions} />
+      <Score correctResponse={correctResponse} />
       {!shouldShowQuiz
       && (
         <Answers

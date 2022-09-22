@@ -12,7 +12,7 @@ function QuestionAnswer(props) {
       setQuestion(getQuestion(questionNum + 1));
       setInputVal('');
     });
-  });
+  }, [questionObj]);
   const handleOnClick = () => {
     nextQuestion(questionObj);
     setQuestion(getQuestion(questionNum + 1));

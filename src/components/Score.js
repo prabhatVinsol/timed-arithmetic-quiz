@@ -1,13 +1,11 @@
 import React from 'react';
 
-function Score(props) {
-  const { answers } = props;
-  const correctAnswers = answers.filter((answer) => answer.correct);
+function Score({ correctResponse }) {
   return (
     <div className="QuizTopText">
       Score --
       {' '}
-      {correctAnswers.length}
+      {correctResponse}
     </div>
   );
 }

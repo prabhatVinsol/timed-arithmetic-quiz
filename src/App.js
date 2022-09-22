@@ -1,10 +1,10 @@
-import QuizContainer from './components/QuizContainer';
+import QuizInfo from './components/QuizInfo';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <QuizContainer />
+      <QuizInfo />
     </div>
   );
 }

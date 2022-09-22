@@ -2,7 +2,7 @@ import React from 'react';
 import Quiz from './Quiz';
 import QuizDetail from './QuizDetail';
 
-function QuizContainer() {
+function QuizInfo() {
   return (
     <div className="QuizContainer">
       <QuizDetail />
@@ -11,4 +11,4 @@ function QuizContainer() {
   );
 }
 
-export default QuizContainer;
+export default QuizInfo;
