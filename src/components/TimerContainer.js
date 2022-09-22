@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { QUESTIONS_COUNT, TIMER_DURATION, TIMER_LIMIT } from '../utils/Constants';
 import { publish, subscribe } from '../utils/Event';
 
-function TimerContainer(props) {
-  const { questionNum } = props;
-  const [count, setCount] = useState(20);
+function TimerContainer({ questionNum }) {
+  const [count, setCount] = useState(TIMER_LIMIT);
 
   const updateCount = () => {
+    subscribe('ResetInterval', (data) => {
+      setCount(data.detail);
+    });
     if (count > 1) {
       setCount((prevState) => prevState - 1);
-    } else if (questionNum === 20) {
+    } else if (questionNum === QUESTIONS_COUNT) {
       setCount(0);
       publish('NextQuestion');
     } else {
@@ -16,12 +19,10 @@ function TimerContainer(props) {
     }
   };
   useEffect(() => {
-    const timer = setInterval(updateCount, 1000);
-    subscribe('ResetInterval', (data) => {
-      setCount(data.detail);
-    });
+    const timer = setInterval(updateCount, TIMER_DURATION);
+
     return () => clearInterval(timer);
-  });
+  }, [count]);
 
   return (
     <div className="QuizDetail">

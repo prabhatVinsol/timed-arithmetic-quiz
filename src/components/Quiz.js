@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { QUESTIONS_COUNT, TIMER_LIMIT } from '../utils/Constants';
 import Answers from './Answers';
 import { publish } from '../utils/Event';
 import QuestionAnswer from './QuestionAnswer';
@@ -9,19 +10,18 @@ function Quiz() {
   const [questionNumber, setQuestionNumber] = useState(1);
   const [questions, setQuestions] = useState([]);
   const nextQuestion = (question) => {
-    if (questionNumber < 21) {
+    if (questionNumber <= QUESTIONS_COUNT) {
       setQuestions([...questions, question]);
-      publish('ResetInterval', 20);
+      publish('ResetInterval', TIMER_LIMIT);
       setQuestionNumber(questionNumber + 1);
     }
   };
-  const shouldShowQuiz = questionNumber < 21;
+  const shouldShowQuiz = questionNumber <= QUESTIONS_COUNT;
   return (
     <div>
       {shouldShowQuiz && (
         <TimerContainer
           questionNum={questionNumber}
-          nextQuestion={nextQuestion}
         />
       )}
       {shouldShowQuiz && (
