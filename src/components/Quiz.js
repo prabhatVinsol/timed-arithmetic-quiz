@@ -21,15 +21,15 @@ function Quiz() {
   return (
     <div>
       {shouldShowQuiz && (
-        <TimerContainer
-          questionNum={questionNumber}
-        />
-      )}
-      {shouldShowQuiz && (
-        <QuestionAnswer
-          questionNum={questionNumber}
-          nextQuestion={nextQuestion}
-        />
+        <div>
+          <TimerContainer
+            questionNum={questionNumber}
+          />
+          <QuestionAnswer
+            questionNum={questionNumber}
+            nextQuestion={nextQuestion}
+          />
+        </div>
       )}
       <Score correctResponse={correctResponse} />
       {!shouldShowQuiz
