@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { publish, subscribe } from './Event';
+import { publish, subscribe } from '../utils/Event';
 
 function TimerContainer(props) {
   const { questionNum } = props;

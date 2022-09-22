@@ -1,14 +1,12 @@
-function subscribe(eventName, listener) {
+export const subscribe = (eventName, listener) => {
   document.addEventListener(eventName, listener);
-}
+};
 
-function unsubscribe(eventName, listener) {
+export const unsubscribe = (eventName, listener) => {
   document.removeEventListener(eventName, listener);
-}
+};
 
-function publish(eventName, data) {
+export const publish = (eventName, data) => {
   const event = new CustomEvent(eventName, { detail: data });
   document.dispatchEvent(event);
-}
-
-export { publish, subscribe, unsubscribe };
+};

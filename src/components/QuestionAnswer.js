@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { subscribe } from './Event';
+import { subscribe } from '../utils/Event';
 import { getQuestion } from './Helper';
 
 function QuestionAnswer(props) {

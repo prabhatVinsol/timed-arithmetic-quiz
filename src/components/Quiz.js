@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Answers from './Answers';
-import { publish } from './Event';
+import { publish } from '../utils/Event';
 import QuestionAnswer from './QuestionAnswer';
 import Score from './Score';
 import TimerContainer from './TimerContainer';
