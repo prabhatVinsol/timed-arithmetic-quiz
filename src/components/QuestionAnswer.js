@@ -6,6 +6,7 @@ function QuestionAnswer(props) {
   const { questionNum, nextQuestion } = props;
   const [questionObj, setQuestion] = useState(getQuestion(questionNum));
   const [inputVal, setInputVal] = useState('');
+
   useEffect(() => {
     subscribe('NextQuestion', () => {
       nextQuestion(questionObj);
@@ -13,10 +14,19 @@ function QuestionAnswer(props) {
       setInputVal('');
     });
   }, [questionObj]);
+
   const handleOnClick = () => {
     nextQuestion(questionObj);
     setQuestion(getQuestion(questionNum + 1));
     setInputVal('');
+  };
+
+  const handleKeypress = (e) => {
+    if (e.charCode === 13) {
+      nextQuestion(questionObj);
+      setQuestion(getQuestion(questionNum + 1));
+      setInputVal('');
+    }
   };
   const onChangeHandler = (e) => {
     setQuestion((prevState) => ({
@@ -28,6 +38,7 @@ function QuestionAnswer(props) {
     }));
     setInputVal(e.target.value);
   };
+
   return (
     <div className="ArithmeticContainer">
       <div>
@@ -37,6 +48,7 @@ function QuestionAnswer(props) {
           className="Input"
           value={inputVal}
           onChange={onChangeHandler}
+          onKeyPress={handleKeypress}
         />
       </div>
       <div className="ButtonContainer">
