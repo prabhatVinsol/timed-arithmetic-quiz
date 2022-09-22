@@ -40,7 +40,7 @@ function QuestionAnswer(props) {
     setInputVal(e.target.value);
   };
 
-  const exceptThisSymbols = ['e', 'E', '+', '-'];
+  const exceptThisSymbols = ['e', 'E', '+'];
   return (
     <div className="ArithmeticContainer">
       <div>

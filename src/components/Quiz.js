@@ -9,6 +9,7 @@ import TimerContainer from './TimerContainer';
 function Quiz() {
   const [questionNumber, setQuestionNumber] = useState(1);
   const [questions, setQuestions] = useState([]);
+
   const nextQuestion = (question) => {
     if (questionNumber <= QUESTIONS_COUNT) {
       setQuestions([...questions, question]);
@@ -16,36 +17,40 @@ function Quiz() {
       setQuestionNumber(questionNumber + 1);
     }
   };
-  const showResults = questionNumber <= QUESTIONS_COUNT;
+
+  const showQuiz = questionNumber <= QUESTIONS_COUNT;
   const correctResponse = questions.filter((answer) => answer.correct).length;
+
+  const renderQuiz = () => (
+    <div>
+      <TimerContainer
+        questionNum={questionNumber}
+      />
+      <QuestionAnswer
+        questionNum={questionNumber}
+        nextQuestion={nextQuestion}
+      />
+      <Score correctResponse={correctResponse} />
+    </div>
+  );
+
+  const renderResults = () => (
+    <div>
+      <Score correctResponse={correctResponse} />
+      <Answers
+        answers={questions}
+        shouldShowCorrectAnswers
+      />
+      <Answers
+        answers={questions}
+        shouldShowCorrectAnswers={false}
+      />
+    </div>
+  );
+
   return (
     <div>
-      {showResults && (
-        <div>
-          <TimerContainer
-            questionNum={questionNumber}
-          />
-          <QuestionAnswer
-            questionNum={questionNumber}
-            nextQuestion={nextQuestion}
-          />
-        </div>
-      )}
-      <Score correctResponse={correctResponse} />
-      {!showResults
-      && (
-        <Answers
-          answers={questions}
-          shouldShowCorrectAnswers
-        />
-      )}
-      {!showResults
-      && (
-        <Answers
-          answers={questions}
-          shouldShowCorrectAnswers={false}
-        />
-      )}
+      {showQuiz ? renderQuiz() : renderResults()}
     </div>
   );
 }
