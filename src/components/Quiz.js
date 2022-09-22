@@ -10,21 +10,30 @@ function Quiz({ questions }) {
   const [currentQuestion, updateCurrentQuestion] = useState(questions[0]);
   const [correctResponses, updateCorrectResponses] = useState([]);
   const [wrongResponses, updateWrongresponses] = useState([]);
+  const inputRef = React.createRef();
 
-  const nextQuestion = (question) => {
-    if (question.id <= QUESTIONS_COUNT) {
-      if (question.correct) {
-        updateCorrectResponses([...correctResponses, question]);
+  const nextQuestion = () => {
+    const inputVal = inputRef.current.value;
+    if (currentQuestion.id <= QUESTIONS_COUNT) {
+      const updateCurrentQuestionWithResponse = (
+        {
+          ...currentQuestion,
+          givenAnswer: inputVal,
+          correct: inputVal !== '' && Number(currentQuestion.answer) === Number(inputVal),
+        });
+      if (updateCurrentQuestionWithResponse.correct) {
+        updateCorrectResponses([...correctResponses, updateCurrentQuestionWithResponse]);
       } else {
-        updateWrongresponses([...wrongResponses, question]);
+        updateWrongresponses([...wrongResponses, updateCurrentQuestionWithResponse]);
       }
       publish('ResetInterval', TIMER_LIMIT);
-      if ((question.id) < QUESTIONS_COUNT) {
-        updateCurrentQuestion(questions[question.id]);
+      if ((currentQuestion.id) < QUESTIONS_COUNT) {
+        updateCurrentQuestion(questions[currentQuestion.id]);
       } else {
-        updateCurrentQuestion({ ...currentQuestion, id: (question.id + 1) });
+        updateCurrentQuestion({ ...currentQuestion, id: (currentQuestion.id + 1) });
       }
     }
+    inputRef.current.value = '';
   };
 
   const showQuiz = currentQuestion.id <= QUESTIONS_COUNT;
@@ -33,8 +42,10 @@ function Quiz({ questions }) {
     <div>
       <TimerContainer
         questionNum={currentQuestion.id}
+        nextQuestion={nextQuestion}
       />
       <QuestionAnswer
+        ref={inputRef}
         questionObj={currentQuestion}
         nextQuestion={nextQuestion}
       />

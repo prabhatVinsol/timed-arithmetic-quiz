@@ -1,35 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { ENTER_CHARCODE } from '../utils/Constants';
-import { subscribe } from '../utils/Event';
 
-function QuestionAnswer(props) {
+const QuestionAnswer = React.forwardRef((props, ref) => {
   const { questionObj, nextQuestion } = props;
   const [inputVal, setInputVal] = useState('');
 
-  const getQuestionWithResponse = () => ({
-    ...questionObj,
-    givenAnswer: inputVal,
-    correct: inputVal !== '' && Number(questionObj.answer) === Number(inputVal),
-  });
-
-  const handleNextQuestionResquest = () => {
-    nextQuestion(getQuestionWithResponse());
-    setInputVal('');
-  };
-
-  useEffect(() => {
-    subscribe('NextQuestion', () => {
-      handleNextQuestionResquest();
-    });
-  }, []);
-
   const handleOnClick = () => {
-    handleNextQuestionResquest();
+    nextQuestion();
   };
 
   const handleKeypress = (e) => {
     if (e.charCode === ENTER_CHARCODE) {
-      handleNextQuestionResquest();
+      nextQuestion();
     }
   };
 
@@ -37,12 +19,17 @@ function QuestionAnswer(props) {
     setInputVal(e.target.value);
   };
 
+  useEffect(() => {
+    setInputVal('');
+  }, [questionObj]);
+
   const exceptThisSymbols = ['e', 'E', '+'];
   return (
     <div className="ArithmeticContainer">
       <div>
         {questionObj.question}
         <input
+          ref={ref}
           type="number"
           className="Input"
           value={inputVal}
@@ -62,6 +49,6 @@ function QuestionAnswer(props) {
       </div>
     </div>
   );
-}
+});
 
 export default QuestionAnswer;

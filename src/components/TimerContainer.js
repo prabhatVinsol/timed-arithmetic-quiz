@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { QUESTIONS_COUNT, TIMER_DURATION, TIMER_LIMIT } from '../utils/Constants';
-import { publish, subscribe } from '../utils/Event';
+import { subscribe } from '../utils/Event';
 
-function TimerContainer({ questionNum }) {
+function TimerContainer({ questionNum, nextQuestion }) {
   const [count, setCount] = useState(TIMER_LIMIT);
 
   const updateCount = () => {
@@ -13,11 +13,12 @@ function TimerContainer({ questionNum }) {
       setCount((prevState) => prevState - 1);
     } else if (questionNum === QUESTIONS_COUNT) {
       setCount(0);
-      publish('NextQuestion');
+      nextQuestion();
     } else {
-      publish('NextQuestion');
+      nextQuestion();
     }
   };
+
   useEffect(() => {
     const timer = setInterval(updateCount, TIMER_DURATION);
 
