@@ -37,7 +37,6 @@ function QuestionAnswer(props) {
   };
 
   const onChangeHandler = (e) => {
-    console.log('inputVal', inputVal);
     setInputVal(e.target.value);
   };
 
