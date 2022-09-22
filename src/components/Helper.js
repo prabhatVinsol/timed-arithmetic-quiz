@@ -1,13 +1,38 @@
 /* eslint no-eval: 0 */
-const getRandomOperator = () => {
+import { MAX_LIMIT } from '../utils/constant';
+
+export const getRandomNumber = (maxLimit) => Math.floor(Math.random() * maxLimit);
+
+export const getRandomOperator = () => {
   const operators = ['+', '-', '*', '/'];
-  const opIndex = Math.floor(Math.random() * 4);
+  const opIndex = getRandomNumber(4);
   return operators[opIndex];
 };
-const getRandomNumber = () => Math.floor(Math.random() * 20);
-const getQuestion = (number) => {
-  const questionVal = `${getRandomNumber()} ${getRandomOperator()} ${getRandomNumber()}`;
-  const evaluate = eval(questionVal);
+
+export const evaluateQuestion = (firstNumber, secondNumber, operator) => {
+  const fNumber = Number(firstNumber);
+  const sNumber = Number(secondNumber);
+
+  switch (operator) {
+  case '+':
+    return fNumber + sNumber;
+  case '-':
+    return fNumber - sNumber;
+  case '*':
+    return fNumber * sNumber;
+  case '/':
+    return fNumber / sNumber;
+  default:
+    return NaN;
+  }
+};
+
+export const getQuestion = (number) => {
+  const firstNumber = getRandomNumber(MAX_LIMIT);
+  const secondNumber = getRandomNumber(MAX_LIMIT);
+  const operator = getRandomOperator();
+  const questionVal = `${firstNumber} ${operator} ${secondNumber}`;
+  const evaluate = evaluateQuestion(firstNumber, secondNumber, operator);
   return {
     question: questionVal,
     id: number,
@@ -16,5 +41,3 @@ const getQuestion = (number) => {
     correct: false,
   };
 };
-
-export { getQuestion, getRandomNumber, getRandomOperator };
