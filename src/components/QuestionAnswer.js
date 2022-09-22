@@ -1,41 +1,42 @@
 import React, { useEffect, useState } from 'react';
+import { ENTER_CHARCODE } from '../utils/Constants';
 import { subscribe } from '../utils/Event';
 import { getQuestion } from './Helper';
 
 function QuestionAnswer(props) {
   const { questionNum, nextQuestion } = props;
-  const [questionObj, setQuestion] = useState(getQuestion(questionNum));
+  const [questionObj, updateQuestionWithResponse] = useState(getQuestion(questionNum));
   const [inputVal, setInputVal] = useState('');
 
-  useEffect(() => {
-    subscribe('NextQuestion', () => {
-      nextQuestion(questionObj);
-      setQuestion(getQuestion(questionNum + 1));
-      setInputVal('');
-    });
-  }, [questionObj]);
+  const getQuestionWithResponse = () => ({
+    ...questionObj,
+    givenAnswer: inputVal,
+    correct: inputVal !== '' && Number(questionObj.answer) === Number(inputVal),
+  });
 
-  const handleOnClick = () => {
-    nextQuestion(questionObj);
-    setQuestion(getQuestion(questionNum + 1));
+  const handleNextQuestionResquest = () => {
+    nextQuestion(getQuestionWithResponse());
+    updateQuestionWithResponse(getQuestion(questionNum + 1));
     setInputVal('');
   };
 
+  useEffect(() => {
+    subscribe('NextQuestion', () => {
+      handleNextQuestionResquest();
+    });
+  }, []);
+
+  const handleOnClick = () => {
+    handleNextQuestionResquest();
+  };
+
   const handleKeypress = (e) => {
-    if (e.charCode === 13) {
-      nextQuestion(questionObj);
-      setQuestion(getQuestion(questionNum + 1));
-      setInputVal('');
+    if (e.charCode === ENTER_CHARCODE) {
+      handleNextQuestionResquest();
     }
   };
+
   const onChangeHandler = (e) => {
-    setQuestion((prevState) => ({
-      question: prevState.question,
-      id: prevState.id,
-      answer: prevState.answer,
-      givenAnswer: e.target.value,
-      correct: Number(prevState.answer) === Number(e.target.value),
-    }));
     setInputVal(e.target.value);
   };
 
