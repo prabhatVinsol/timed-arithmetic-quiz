@@ -16,11 +16,11 @@ function Quiz() {
       setQuestionNumber(questionNumber + 1);
     }
   };
-  const shouldShowQuiz = questionNumber <= QUESTIONS_COUNT;
+  const showResults = questionNumber <= QUESTIONS_COUNT;
   const correctResponse = questions.filter((answer) => answer.correct).length;
   return (
     <div>
-      {shouldShowQuiz && (
+      {showResults && (
         <div>
           <TimerContainer
             questionNum={questionNumber}
@@ -32,14 +32,14 @@ function Quiz() {
         </div>
       )}
       <Score correctResponse={correctResponse} />
-      {!shouldShowQuiz
+      {!showResults
       && (
         <Answers
           answers={questions}
           shouldShowCorrectAnswers
         />
       )}
-      {!shouldShowQuiz
+      {!showResults
       && (
         <Answers
           answers={questions}
