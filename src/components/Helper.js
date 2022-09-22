@@ -1,5 +1,5 @@
 /* eslint no-eval: 0 */
-import { MAX_LIMIT } from '../utils/constant';
+import { MAX_LIMIT } from '../utils/Constants';
 
 export const getRandomNumber = (maxLimit) => Math.floor(Math.random() * maxLimit);
 
