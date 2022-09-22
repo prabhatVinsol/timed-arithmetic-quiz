@@ -18,7 +18,7 @@ function Quiz({ questions }) {
       const updateCurrentQuestionWithResponse = (
         {
           ...currentQuestion,
-          givenAnswer: inputVal,
+          givenAnswer: inputVal === '' ? 'NA' : inputVal,
           correct: inputVal !== '' && Number(currentQuestion.answer) === Number(inputVal),
         });
       if (updateCurrentQuestionWithResponse.correct) {
