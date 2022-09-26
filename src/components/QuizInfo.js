@@ -1,5 +1,5 @@
 import React from 'react';
-import { getQuestions } from './Helper';
+import { getQuestions } from '../helper/quiz';
 import Quiz from './Quiz';
 import QuizDetail from './QuizDetail';
 

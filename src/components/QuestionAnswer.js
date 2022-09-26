@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ENTER_CHARCODE } from '../utils/Constants';
+import { ENTER_KEY, EXECPT_THIS_SYMBOLS } from '../utils/Constants';
 
 const QuestionAnswer = React.forwardRef((props, ref) => {
   const { questionObj, nextQuestion } = props;
@@ -10,8 +10,10 @@ const QuestionAnswer = React.forwardRef((props, ref) => {
   };
 
   const handleKeypress = (e) => {
-    if (e.charCode === ENTER_CHARCODE) {
+    if (e.key === ENTER_KEY) {
       nextQuestion();
+    } else if (EXECPT_THIS_SYMBOLS.includes(e.key)) {
+      e.preventDefault();
     }
   };
 
@@ -23,7 +25,6 @@ const QuestionAnswer = React.forwardRef((props, ref) => {
     setInputVal('');
   }, [questionObj]);
 
-  const exceptThisSymbols = ['e', 'E', '+'];
   return (
     <div className="ArithmeticContainer">
       <div>
@@ -34,8 +35,7 @@ const QuestionAnswer = React.forwardRef((props, ref) => {
           className="Input"
           value={inputVal}
           onChange={onChangeHandler}
-          onKeyPress={handleKeypress}
-          onKeyDown={(e) => exceptThisSymbols.includes(e.key) && e.preventDefault()}
+          onKeyDown={handleKeypress}
         />
       </div>
       <div className="ButtonContainer">
